@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JoyOI.OnlineJudge.Models">
+      <Version>1.0.0-alpha-10051</Version>
+    </PackageReference>
+    <PackageReference Include="JoyOI.UserCenter.SDK">
+      <Version>1.0.0-alpha-10063</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Pomelo.AspNetCore.Extensions" Version="2.0.0-*" />
+    <PackageReference Include="MySqlConnector">
+      <Version>0.31.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>账号迁移</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
+    <link href="~/styles/style.css" rel='stylesheet' type='text/css' />
+    <script src="~/scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="newsletter-box">
+        <div class="newsletter-message">
+            <div class="newsletter-image">
+                <img src="/images/responsive.png" alt="" />
+            </div>
+            <div class="newsletter-content">
+                <h2 class="newsletter-content-title">恭喜你</h2>
+                <p class="newsletter-content-subtitle">您已经成功将Tyvj账号资料转移至Joy OI。</p>
+                <input type="button" id="btnGo" class="incsub-mailchimp-submit" style="width: 160px" value="前往Joy OI" />
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <script>
+        $('#btnGo').click(function () {
+            window.location = 'http://www.joyoi.cn';
+        });
+    </script>
+</body>
+</html>

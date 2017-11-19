@@ -1,0 +1,432 @@
+/* reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, nav ul, nav li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+ol, ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after, q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* start editing from here */
+a {
+    text-decoration: none;
+}
+
+.txt-rt {
+    text-align: right;
+}
+/* text align right */
+.txt-lt {
+    text-align: left;
+}
+/* text align left */
+.txt-center {
+    text-align: center;
+}
+/* text align center */
+.float-rt {
+    float: right;
+}
+/* float right */
+.float-lt {
+    float: left;
+}
+/* float left */
+.clear {
+    clear: both;
+}
+/* clear float */
+.pos-relative {
+    position: relative;
+}
+/* Position Relative */
+.pos-absolute {
+    position: absolute;
+}
+/* Position Absolute */
+.vertical-base {
+    vertical-align: baseline;
+}
+/* vertical align baseline */
+.vertical-top {
+    vertical-align: top;
+}
+/* vertical align top */
+nav.vertical ul li {
+    display: block;
+}
+/* vertical menu */
+nav.horizontal ul li {
+    display: inline-block;
+}
+/* horizontal menu */
+img {
+    max-width: 100%;
+}
+/*end reset*/
+body {
+    background: url(/images/back.jpg) no-repeat;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.newsletter-image {
+    position: absolute;
+    top: -75px;
+    left: -53px;
+}
+
+.newsletter-box {
+    padding-top: 2em;
+}
+
+.newsletter-message {
+    width: 42%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin: 12em auto 0;
+    background: #fff;
+    padding: 2em;
+    position: relative;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.newsletter-content {
+    width: 66%;
+    float: right;
+}
+
+    .newsletter-content .newsletter-content-title {
+        font-size: 2.2em;
+        color: #9761c4;
+        font-weight: normal;
+        margin: 0;
+        width: 90%;
+    }
+
+.newsletter-image {
+    width: 100%;
+}
+
+.newsletter-content .newsletter-content-subtitle {
+    font-size: 0.94em;
+    line-height: 1.8em;
+    color: #b2b2b2;
+    margin: 2em 0 2em;
+    width: 100%;
+}
+
+.newsletter-content form {
+    margin: 0;
+}
+
+input.incsub-mailchimp-field {
+    width: 66%;
+    padding: 15px;
+    font-size: 1em;
+    border: 1px solid #d6a5ff;
+    outline: none;
+    margin: 0 0 1em;
+    background: #f8fafa;
+    -webkit-appearance: none;
+    color: #999;
+}
+
+    input.incsub-mailchimp-field:hover {
+        border: 1px solid #9761c4;
+    }
+
+.newsletter-box .incsub-mailchimp-submit {
+    width: 30%;
+    padding: 13px;
+    font-size: 1.3em;
+    border: 0;
+    background: #9761c4;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    vertical-align: bottom;
+    margin: 0 0 0.8em;
+    -webkit-appearance: none;
+}
+
+    .newsletter-box.incsub-mailchimp-submit:hover {
+        background: #55396C;
+        transition: 0.5s all;
+    }
+
+.close {
+    background: url('/images/close.png') no-repeat 0px 0px;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    right: -11px;
+    top: -11px;
+    -webkit-transition: color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    width: 30px;
+}
+/*--copyrights--*/
+.copy-right {
+    text-align: center;
+    margin-top: 15em;
+}
+
+    .copy-right p {
+        color: #FFF;
+        font-size: 1em;
+        line-height: 1.8em;
+    }
+
+        .copy-right p a {
+            color: #fff;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            text-decoration: none;
+        }
+
+            .copy-right p a:hover {
+                color: #9761c4;
+                text-decoration: none;
+            }
+/*--/copyrights--*/
+/*--media Queries--*/
+@media(max-width:1440px) {
+    .newsletter-content .newsletter-content-title {
+        font-size: 1.8em;
+    }
+
+    .newsletter-box .incsub-mailchimp-submit {
+        vertical-align: bottom;
+    }
+
+    .close {
+        right: -27px;
+        top: -25px;
+    }
+}
+
+@media(max-width:1366px) {
+    .newsletter-image img {
+        width: 35%;
+    }
+
+    .newsletter-image {
+        left: -39px;
+        top: -56px;
+    }
+
+    .newsletter-content .newsletter-content-subtitle {
+        margin: 1em 0 1em;
+        width: 100%;
+        overflow: hidden;
+        height: 50px;
+    }
+}
+
+@media(max-width:1280px) {
+    .newsletter-image img {
+        width: 36%;
+    }
+
+    .newsletter-image {
+        top: -49px;
+        left: -39px;
+    }
+
+    .newsletter-content {
+        width: 70%;
+    }
+
+        .newsletter-content .newsletter-content-subtitle {
+            font-size: 0.9em;
+            margin: 1em 0 1em;
+            width: 100%;
+            overflow: hidden;
+            height: 55px;
+        }
+}
+
+@media(max-width:1024px) {
+    .newsletter-content .newsletter-content-subtitle {
+        font-size: 0.89em;
+    }
+
+    .newsletter-message {
+        width: 50%;
+    }
+}
+
+@media(max-width:768px) {
+    .newsletter-image img {
+        width: 32%;
+    }
+
+    .newsletter-message {
+        width: 64%;
+    }
+
+    .newsletter-image {
+        top: -41px;
+        left: -37px;
+    }
+
+    .newsletter-content .newsletter-content-title {
+        font-size: 1.7em;
+        width: 100%;
+    }
+
+    .newsletter-content .newsletter-content-subtitle {
+        overflow: hidden;
+        height: 56px;
+    }
+
+    .newsletter-content {
+        width: 64%;
+    }
+
+    .newsletter-box .incsub-mailchimp-submit {
+        padding: 13px 7px;
+    }
+}
+
+@media(max-width:640px) {
+    .newsletter-message {
+        width: 79%;
+    }
+
+    .newsletter-image img {
+        width: 38%;
+    }
+
+    .newsletter-image {
+        top: -50px;
+        left: -38px;
+    }
+
+    .newsletter-content {
+        width: 70%;
+    }
+
+        .newsletter-content .newsletter-content-title {
+            font-size: 1.6em;
+        }
+}
+
+@media(max-width:480px) {
+    .newsletter-message {
+        width: 72%;
+    }
+
+    .newsletter-image img {
+        width: 47%;
+    }
+
+    .newsletter-content .newsletter-content-title {
+        font-size: 1.3em;
+    }
+
+    .newsletter-content .newsletter-content-subtitle {
+        overflow: hidden;
+        height: 50px;
+        margin: 1em 0 1em;
+        font-size: 0.8em;
+    }
+
+    input.incsub-mailchimp-field {
+        width: 68%;
+        padding: 12px 11px;
+        font-size: 0.8em;
+        margin: 0 0 2em;
+    }
+
+    .newsletter-box .incsub-mailchimp-submit {
+        width: 30%;
+        padding: 12px 12px;
+        font-size: 0.8em;
+        margin: 0 0 2em;
+    }
+
+    .close {
+        right: -11px;
+        top: -11px;
+    }
+}
+
+@media(max-width:320px) {
+    .newsletter-message {
+        width: 70%;
+        margin: 3em auto 0;
+    }
+
+    .close {
+        right: -12px;
+        top: -13px;
+    }
+
+    .newsletter-image {
+        top: -27px;
+        left: -17px;
+    }
+
+        .newsletter-image img {
+            width: 37%;
+        }
+
+    .newsletter-content {
+        width: 100%;
+        padding-top: 20px;
+    }
+
+        .newsletter-content .newsletter-content-title {
+            font-size: 1.1em;
+        }
+
+    input.incsub-mailchimp-field {
+        width: 100%;
+        margin: 0 0 1em;
+    }
+
+    .newsletter-box .incsub-mailchimp-submit {
+        width: 38%;
+        margin: 0 0 0em;
+    }
+
+    .copy-right {
+        margin-top: 4em;
+    }
+}
+/*--/media Queries--*/

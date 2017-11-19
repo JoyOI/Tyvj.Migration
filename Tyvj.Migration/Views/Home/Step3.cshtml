@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>账号迁移</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
+    <link href="~/styles/style.css" rel='stylesheet' type='text/css' />
+    <script src="~/scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="newsletter-box">
+        <div class="newsletter-message">
+            <div class="newsletter-image">
+                <img src="/images/responsive.png" alt="" />
+            </div>
+            <div class="newsletter-content">
+                <h2 class="newsletter-content-title">Tyvj账号验证</h2>
+                <form method="post" action="/Home/Step4">
+                    <input type="text" class="incsub-mailchimp-field" placeholder="用户名" name="username" required="" />
+                    <input type="password" class="incsub-mailchimp-field" placeholder="密码" name="password" required="" />
+                    <input type="submit" class="incsub-mailchimp-submit" value="下一步" />
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</body>
+</html>

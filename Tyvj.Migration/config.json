@@ -1,0 +1,21 @@
+﻿{
+  "Data": {
+    "MySQL": "Server=localhost;Port=3306;Database=joyoi_oj;Uid=root;Pwd=123456"
+  },
+  "Tyvj": {
+    "ConnectionString": "Server=localhost;Port=3306;Database=tyvj;Uid=root;Pwd=123456"
+  },
+  "JoyOI": {
+    "ConnectionStrings": {
+      "UserCenter": ""
+    },
+    "AppId": "00000000-0000-0000-0000-000000000000",
+    "Secret": "0",
+    "UcUrl": "http://api.uc.joyoi.cn",
+    "RegisterUrl": "http://uc.joyoi.cn/register"
+  },
+  "Aes": {
+    "Key": "0000000000000000",
+    "IV": "0000000204000000"
+  }
+}

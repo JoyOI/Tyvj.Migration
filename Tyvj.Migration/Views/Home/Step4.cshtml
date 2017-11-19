@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>账号迁移</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400' rel='stylesheet' type='text/css'>
+    <link href="~/styles/style.css" rel='stylesheet' type='text/css' />
+    <script src="~/scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="newsletter-box">
+        <div class="newsletter-message">
+            <div class="newsletter-image">
+                <img src="/images/responsive.png" alt="" />
+            </div>
+            <div class="newsletter-content">
+                <h2 class="newsletter-content-title">请设置一个新的用户名</h2>
+                <p class="newsletter-content-subtitle">您的用户名不符合Joy OI的规则，请您创建一个新的用户名。</p>
+                <form method="post" action="/Home/Step5">
+                    @if (ViewBag.Invalid)
+                    {
+                    <input type="text" class="incsub-mailchimp-field" placeholder="用户名" name="username" />
+                    }
+                    else
+                    {
+                    <input type="hidden" class="incsub-mailchimp-field" name="username" value="@ViewBag.Username" />
+                    }
+                    <input type="submit" class="incsub-mailchimp-submit" value="下一步" />
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    @if (!ViewBag.Invalid)
+    {
+    <script>
+        $('form').submit();
+        $('.newsletter-content-title').text('请稍等'); 
+        $('.newsletter-content-subtitle').text('我们正在帮您迁移账号资料，请您耐心等待！');
+        $('input').hide();
+    </script>
+    }
+</body>
+</html>
