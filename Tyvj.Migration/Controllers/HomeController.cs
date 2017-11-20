@@ -170,7 +170,7 @@ namespace Tyvj.Migration.Controllers
                         }
 
                         // 处理评测记录
-                        var tyvjId = await Lib.TyvjUser.GetUserIdAsync(username);
+                        var tyvjId = await Lib.TyvjUser.GetUserIdAsync(Aes.Decrypt(Request.Cookies["tyvj"]));
                         var statuses = await Lib.TyvjUser.GetStatusesAsync(tyvjId);
                         var builder = new DbContextOptionsBuilder<OnlineJudgeContext>();
                         builder.UseMySql(Startup.Config["Data:MySql"]);
@@ -185,6 +185,15 @@ namespace Tyvj.Migration.Controllers
                                     await db.SaveChangesAsync();
                                 } catch { }
                             }
+                        }
+
+                        // 处理通过题目缓存
+                        var cache = await Lib.TyvjUser.GetCachedAcAndTriedProblemsAsync(username);
+                        using (var db = new OnlineJudgeContext(builder.Options))
+                        {
+                            var user = await db.Users.Where(x => x.UserName == Aes.Decrypt(Request.Cookies["tyvj"])).SingleAsync();
+                            user.TriedProblems = JsonConvert.SerializeObject(cache.Item1.Select(x => "tyvj-" + x).ToList());
+                            user.PassedProblems = JsonConvert.SerializeObject(cache.Item2.Select(x => "tyvj-" + x).ToList());
                         }
 
                         // 处理题目所有权

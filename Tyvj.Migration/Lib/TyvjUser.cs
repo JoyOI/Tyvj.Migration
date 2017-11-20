@@ -212,7 +212,7 @@ namespace Tyvj.Migration.Lib
                                 Result = ResultIdToEnum(Convert.ToInt32(dr["result"].ToString())),
                                 MemoryUsedInByte = Convert.ToInt32(dr["memory_usage"].ToString()) * 1024,
                                 TimeUsedInMs = Convert.ToInt32(dr["time_usage"].ToString()),
-                                CreatedTime = Convert.ToDateTime(dr["time"].ToString()),
+                                CreatedTime = Convert.ToDateTime(dr["time"].ToString()).AddHours(-8),
                                 SubStatuses = (await GetSubStatuses(Convert.ToInt32(dr["id"].ToString()))).ToList()
                             });
                         } catch { }
