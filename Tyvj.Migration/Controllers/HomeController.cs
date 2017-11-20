@@ -97,6 +97,7 @@ namespace Tyvj.Migration.Controllers
                     }
 
                     ViewBag.Invalid = false;
+                    ViewBag.EmailInvalid = false;
                     Response.Cookies.Append("tyvj", Aes.Encrypt(username));
                     Response.Cookies.Append("tyvjp", Aes.Encrypt(password));
                     var regex = new Regex("[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}");
@@ -116,10 +117,14 @@ namespace Tyvj.Migration.Controllers
                         ViewBag.Invalid = true;
                     }
 
-                    var email = await Lib.TyvjUser.GetEmailAsync(Aes.Decrypt(Request.Cookies["tyvj"]));
+                    var email = await Lib.TyvjUser.GetEmailAsync(username);
                     if (await UC.IsEmailExistAsync(email))
                     {
                         ViewBag.EmailInvalid = true;
+                    }
+                    else
+                    {
+                        ViewBag.Email = email;
                     }
 
                     return View();
