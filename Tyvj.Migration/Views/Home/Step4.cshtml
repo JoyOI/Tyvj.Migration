@@ -34,18 +34,25 @@
                     {
                     <input type="hidden" class="incsub-mailchimp-field" name="email" value="@ViewBag.Email" />
                     }
-                    <input type="submit" class="incsub-mailchimp-submit" value="下一步" />
+                    <input id="btnNext" type="submit" class="incsub-mailchimp-submit" value="下一步" />
                 </form>
             </div>
             <div class="clearfix"> </div>
         </div>
     </div>
+    <script>
+        $('#btnNext').click(function () {
+            $('.newsletter-content-title').text('请稍等');
+            $('.newsletter-content-subtitle').text('我们正在帮您迁移账号资料，请等候大约2分钟！');
+            $('input').hide();
+        });
+    </script>
     @if (!ViewBag.Invalid && !ViewBag.EmailInvalid)
     {
     <script>
         $('form').submit();
         $('.newsletter-content-title').text('请稍等'); 
-        $('.newsletter-content-subtitle').text('我们正在帮您迁移账号资料，请您耐心等待！');
+        $('.newsletter-content-subtitle').text('我们正在帮您迁移账号资料，请等候大约2分钟！');
         $('input').hide();
     </script>
     }
