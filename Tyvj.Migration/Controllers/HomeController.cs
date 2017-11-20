@@ -91,6 +91,11 @@ namespace Tyvj.Migration.Controllers
             {
                 if (await Lib.TyvjUser.CheckUserCredentialAsync(username, password))
                 {
+                    if (await Lib.TyvjUser.CheckUserMigratedAsync(username))
+                    {
+                        return Content("您的账号已经绑定Joy OI，请勿重复绑定！");
+                    }
+
                     ViewBag.Invalid = false;
                     Response.Cookies.Append("tyvj", Aes.Encrypt(username));
                     Response.Cookies.Append("tyvjp", Aes.Encrypt(password));
@@ -110,6 +115,13 @@ namespace Tyvj.Migration.Controllers
                     {
                         ViewBag.Invalid = true;
                     }
+
+                    var email = await Lib.TyvjUser.GetEmailAsync(Aes.Decrypt(Request.Cookies["tyvj"]));
+                    if (await UC.IsEmailExistAsync(email))
+                    {
+                        ViewBag.EmailInvalid = true;
+                    }
+
                     return View();
                 }
                 else
@@ -124,7 +136,7 @@ namespace Tyvj.Migration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Step5(string username, [FromServices] JoyOIUC UC, [FromServices] AesCrypto Aes)
+        public async Task<IActionResult> Step5(string username, string email, [FromServices] JoyOIUC UC, [FromServices] AesCrypto Aes)
         {
             if (Request.Cookies["phone"] != null && Request.Cookies["tyvj"] != null && Request.Cookies["tyvjp"] != null)
             {
@@ -137,7 +149,12 @@ namespace Tyvj.Migration.Controllers
                     }
                     else
                     {
-                        var openId = await UC.InsertUserAsync(username, Aes.Decrypt(Request.Cookies["tyvjp"]), Aes.Decrypt(Request.Cookies["phone"]), await Lib.TyvjUser.GetEmailAsync(Aes.Decrypt(Request.Cookies["tyvj"])));
+                        if (await UC.IsEmailExistAsync(email))
+                        {
+                            return Content("您的Email已经被注册，请更换后再试！");
+                        }
+
+                        var openId = await UC.InsertUserAsync(username, Aes.Decrypt(Request.Cookies["tyvjp"]), Aes.Decrypt(Request.Cookies["phone"]), email);
                         using (var client = new HttpClient() { BaseAddress = new Uri("http://api.oj.joyoi.cn") })
                         using (var response = await client.PutAsync("/api/user/session", new StringContent(JsonConvert.SerializeObject(new { username = username, password = Aes.Decrypt(Request.Cookies["tyvjp"]) }))))
                         {
@@ -183,6 +200,9 @@ namespace Tyvj.Migration.Controllers
                                 catch { }
                             }
                         }
+
+                        await Lib.TyvjUser.LockTyvjUserAsync(username, Aes.Decrypt(Request.Cookies["tyvj"]));
+
                         return View();
                     }
                 }
@@ -194,24 +214,6 @@ namespace Tyvj.Migration.Controllers
             else
             {
                 return Content("非法请求");
-            }
-        }
-
-        public async Task<IActionResult> GetProfile(string username, string password)
-        {
-            if (await Lib.TyvjUser.CheckUserCredentialAsync(username, password))
-            {
-                return Json(new {
-                    result = "ok",
-                    data = new {
-                        email = await Lib.TyvjUser.GetEmailAsync(username),
-                        phone = await Lib.TyvjUser.GetPhoneNumberAsync(username)
-                    }
-                });
-            }
-            else
-            {
-                return Json(new { result = "failed" });
             }
         }
     }

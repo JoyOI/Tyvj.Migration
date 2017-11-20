@@ -39,6 +39,25 @@ namespace Tyvj.Migration.Lib
             }
         }
 
+        public async static Task<bool> CheckUserMigratedAsync(string username)
+        {
+            using (var conn = new MySqlConnection(Startup.Config["Tyvj:ConnectionString"]))
+            {
+                await conn.OpenAsync();
+                using (var cmd = new MySqlCommand($"SELECT * FROM `users` WHERE `username` = @username", conn))
+                {
+                    cmd.Parameters.Add(new MySqlParameter("username", username));
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        if (!await dr.ReadAsync())
+                            throw new Exception("User not found");
+
+                        return !string.IsNullOrEmpty(dr["joyoi_name"].ToString());
+                    }
+                }
+            }
+        }
+
         public async static Task<string> GetPhoneNumberAsync(string username)
         {
             try
@@ -232,6 +251,20 @@ namespace Tyvj.Migration.Lib
                 }
             }
             return ret;
+        }
+
+        public static async Task LockTyvjUserAsync(string joyoiName, string tyvjName)
+        {
+            using (var conn = new MySqlConnection(Startup.Config["Tyvj:ConnectionString"]))
+            {
+                await conn.OpenAsync();
+                using (var cmd = new MySqlCommand($"UPDATE `users` SET `joyoi_name` = @joyoi_name WHERE `username` = @username", conn))
+                {
+                    cmd.Parameters.Add(new MySqlParameter("joyoi_name", joyoiName));
+                    cmd.Parameters.Add(new MySqlParameter("username", tyvjName));
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
         }
 
         public static string LanguageIdToString(int id)

@@ -430,3 +430,7 @@ input.incsub-mailchimp-field {
     }
 }
 /*--/media Queries--*/
+.incsub-mailchimp-field, .incsub-mailchimp-submit {
+    z-index: 999;
+    position: relative;
+}

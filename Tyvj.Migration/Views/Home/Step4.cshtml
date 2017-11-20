@@ -14,8 +14,8 @@
                 <img src="/images/responsive.png" alt="" />
             </div>
             <div class="newsletter-content">
-                <h2 class="newsletter-content-title">请设置一个新的用户名</h2>
-                <p class="newsletter-content-subtitle">您的用户名不符合Joy OI的规则，请您创建一个新的用户名。</p>
+                <h2 class="newsletter-content-title">更新您的资料</h2>
+                <p class="newsletter-content-subtitle">您的资料不符合Joy OI的规则，请您更新下面的内容。</p>
                 <form method="post" action="/Home/Step5">
                     @if (ViewBag.Invalid)
                     {
@@ -25,13 +25,22 @@
                     {
                     <input type="hidden" class="incsub-mailchimp-field" name="username" value="@ViewBag.Username" />
                     }
+                    
+                    @if (ViewBag.Invalid)
+                    {
+                    <input type="text" class="incsub-mailchimp-field" placeholder="电子邮箱" name="email" />
+                    }
+                    else
+                    {
+                    <input type="hidden" class="incsub-mailchimp-field" name="email" value="@ViewBag.Email" />
+                    }
                     <input type="submit" class="incsub-mailchimp-submit" value="下一步" />
                 </form>
             </div>
             <div class="clearfix"> </div>
         </div>
     </div>
-    @if (!ViewBag.Invalid)
+    @if (!ViewBag.Invalid && !ViewBag.EmailInvalid)
     {
     <script>
         $('form').submit();
