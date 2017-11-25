@@ -35,7 +35,7 @@ namespace Tyvj.Migration.Controllers
         {
             if (await UC.IsPhoneExistAsync(phone))
             {
-                return Content("手机号码已被注册，请更换后重试！");
+                return Content("您的手机号码已在Joy OI中注册，请更换后重试！");
             }
 
             if (Request.Cookies["register"] != null)
@@ -145,6 +145,11 @@ namespace Tyvj.Migration.Controllers
         {
             if (Request.Cookies["phone"] != null && Request.Cookies["tyvj"] != null && Request.Cookies["tyvjp"] != null)
             {
+                if (await UC.IsPhoneExistAsync(Aes.Decrypt(Request.Cookies["phone"])))
+                {
+                    return Content("手机号码已被注册，请更换后重试！");
+                }
+
                 var regex = new Regex("[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}");
                 if (regex.IsMatch(username))
                 {
@@ -159,7 +164,15 @@ namespace Tyvj.Migration.Controllers
                             return Content("您的Email已经被注册，请更换后再试！");
                         }
 
-                        var openId = await UC.InsertUserAsync(username, Aes.Decrypt(Request.Cookies["tyvjp"]), Aes.Decrypt(Request.Cookies["phone"]), email);
+                        Guid openId;
+                        try
+                        {
+                            openId = await UC.InsertUserAsync(username, Aes.Decrypt(Request.Cookies["tyvjp"]), Aes.Decrypt(Request.Cookies["phone"]), email);
+                        }
+                        catch
+                        {
+                            return Content("您的Joy OI通行证创建失败，可能因为您的手机号码、电子邮箱、或用户名已经在Joy OI上存在，请您更换以上信息后重新尝试迁移！");
+                        }
                         using (var client = new HttpClient() { BaseAddress = new Uri("http://api.oj.joyoi.cn") })
                         using (var response = await client.PutAsync("/api/user/session", new StringContent(JsonConvert.SerializeObject(new { username = username, password = Aes.Decrypt(Request.Cookies["tyvjp"]) }))))
                         {
@@ -188,12 +201,15 @@ namespace Tyvj.Migration.Controllers
                         }
 
                         // 处理通过题目缓存
-                        var cache = await Lib.TyvjUser.GetCachedAcAndTriedProblemsAsync(username);
+                        var cache = await Lib.TyvjUser.GetCachedAcAndTriedProblemsAsync(Aes.Decrypt(Request.Cookies["tyvj"]));
                         using (var db = new OnlineJudgeContext(builder.Options))
                         {
                             var user = await db.Users.Where(x => x.UserName == Aes.Decrypt(Request.Cookies["tyvj"])).SingleAsync();
-                            user.TriedProblems = JsonConvert.SerializeObject(cache.Item1.Select(x => "tyvj-" + x).ToList());
-                            user.PassedProblems = JsonConvert.SerializeObject(cache.Item2.Select(x => "tyvj-" + x).ToList());
+                            if (cache.Item1 != null)
+                                user.TriedProblems = JsonConvert.SerializeObject(cache.Item1.Select(x => "tyvj-" + x).ToList());
+                            if (cache.Item2 != null)
+                                user.PassedProblems = JsonConvert.SerializeObject(cache.Item2.Select(x => "tyvj-" + x).ToList());
+                            await db.SaveChangesAsync();
                         }
 
                         // 处理题目所有权
