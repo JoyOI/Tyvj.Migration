@@ -100,7 +100,7 @@ namespace Tyvj.Migration.Controllers
                     ViewBag.EmailInvalid = false;
                     Response.Cookies.Append("tyvj", Aes.Encrypt(username));
                     Response.Cookies.Append("tyvjp", Aes.Encrypt(password));
-                    var regex = new Regex("[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}");
+                    var regex = new Regex("^[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}$");
                     if (regex.IsMatch(username))
                     {
                         if (await UC.IsUsernameExistAsync(username))
@@ -150,7 +150,7 @@ namespace Tyvj.Migration.Controllers
                     return Content("手机号码已被注册，请更换后重试！");
                 }
 
-                var regex = new Regex("[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}");
+                var regex = new Regex("^[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9fa5A-Za-z0-9_-]{4,32}$");
                 if (regex.IsMatch(username))
                 {
                     if (await UC.IsUsernameExistAsync(username))
